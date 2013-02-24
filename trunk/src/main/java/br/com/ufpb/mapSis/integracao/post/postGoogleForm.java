@@ -12,23 +12,23 @@ import br.com.ufpb.mapSis.beans.Artigo;
 public class postGoogleForm {
 	
 	//TESTES
-//	private static final String URL_FORM = "https://docs.google.com/forms/d/17SMNfbjjR4Ej9vKIzGRWb_btMC2JmKm7tWGMzwKbMyM/formResponse";
-//	private static final String BUSCADOR = "entry.711462740";
-//	private static final String LINK_DOWNLOAD = "entry.846156339";
-//	private static final String CONGRESSO = "entry.1871036549";
-//	private static final String ANO_PUBLICACAO = "entry.1367161724";
-//	private static final String AUTORES = "entry.1022653856";
-//	private static final String TITULO = "entry.1147950154";
+	private static final String URL_FORM = "https://docs.google.com/forms/d/17SMNfbjjR4Ej9vKIzGRWb_btMC2JmKm7tWGMzwKbMyM/formResponse";
+	private static final String BUSCADOR = "entry.711462740";
+	private static final String LINK_DOWNLOAD = "entry.846156339";
+	private static final String CONGRESSO = "entry.1871036549";
+	private static final String ANO_PUBLICACAO = "entry.1367161724";
+	private static final String AUTORES = "entry.1022653856";
+	private static final String TITULO = "entry.1147950154";
 	
 	//FORM DE ALEXANDRE
 	
-	private static final String URL_FORM = "https://docs.google.com/forms/d/1xR8RklZsSGngh1QI6hs4SMCVVtySwIeANS6aS-GrPLE/formResponse";
-	private static final String TITULO = "entry.8648199";
-	private static final String ANO_PUBLICACAO = "entry.158585387";
-	private static final String AUTORES = "entry.1780683021";
-	private static final String CONGRESSO = "entry.2018964305";
-	private static final String BUSCADOR = "entry.1170487382";
-	private static final String LINK_DOWNLOAD = "entry.1657641642";
+//	private static final String URL_FORM = "https://docs.google.com/forms/d/1xR8RklZsSGngh1QI6hs4SMCVVtySwIeANS6aS-GrPLE/formResponse";
+//	private static final String TITULO = "entry.8648199";
+//	private static final String ANO_PUBLICACAO = "entry.158585387";
+//	private static final String AUTORES = "entry.1780683021";
+//	private static final String CONGRESSO = "entry.2018964305";
+//	private static final String BUSCADOR = "entry.1170487382";
+//	private static final String LINK_DOWNLOAD = "entry.1657641642";
 	
 	private static final String BUSCADOR_VALUE = "IEEE Xplore";
 
