@@ -20,7 +20,7 @@ public class ExecutarMappingScienceDirect {
 			List<Artigo> artigos = ParserHtmlScienceDirect.realizarParserHtml(input);
 
 			for (Artigo a : artigos) {
-				postGoogleForm.post(a);
+				postGoogleForm.post(a,"Science Direct");
 			}
 
 		} catch (Exception e) {

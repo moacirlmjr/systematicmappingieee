@@ -19,7 +19,7 @@ public class ExecutarMappingAcm {
 			List<Artigo> artigos = ParserHtmlACM.realizarParserHtml(input);
 
 			for (Artigo a : artigos) {
-				postGoogleForm.post(a);
+				postGoogleForm.post(a, "ACM Digital Library");
 			}
 
 		} catch (Exception e) {
