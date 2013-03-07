@@ -30,9 +30,7 @@ public class postGoogleForm {
 //	private static final String BUSCADOR = "entry.1170487382";
 //	private static final String LINK_DOWNLOAD = "entry.1657641642";
 	
-	private static final String BUSCADOR_VALUE = "ACM Digital Library";
-
-	public static void post(Artigo a) throws Exception{
+	public static void post(Artigo a, String buscador) throws Exception{
 		String data = "";
 		try{
 			data = URLEncoder.encode(TITULO, "UTF-8") + "="
@@ -51,7 +49,7 @@ public class postGoogleForm {
 					+ URLEncoder.encode(a.getLinkDownload(), "UTF-8") + "&"
 					
 					+ URLEncoder.encode(BUSCADOR, "UTF-8") + "="
-					+ URLEncoder.encode(BUSCADOR_VALUE, "UTF-8") + "&";
+					+ URLEncoder.encode(buscador, "UTF-8") + "&";
 		}catch (Exception e) {
 			e.printStackTrace();
 		}
