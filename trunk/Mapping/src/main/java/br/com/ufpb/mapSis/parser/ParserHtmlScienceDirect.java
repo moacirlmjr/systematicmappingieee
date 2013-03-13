@@ -24,15 +24,27 @@ public class ParserHtmlScienceDirect {
 			for (File html : diretorio.listFiles()) {
 				if (html.getName().contains("htm")) {
 					Document doc = Jsoup.parse(html, "UTF-8", "localhost");
-					for (Element e : doc.select("div")) {
-						if (e.attr("id").equalsIgnoreCase(SEARCH_RESULTS)) {
-							for (Element children : e.children()) {
+					for (Element element : doc.select("div")) {
+						if (element.attr("id").equalsIgnoreCase(SEARCH_RESULTS)) {
+							for (Element children : element.children()) {
 								Artigo artigo = new Artigo();
+								artigo.setOrigem(html.getName());
 								if (children.attr("class").equals("resultRow")) {
 									artigo.setTitulo(children.getElementsByClass(
 									"cLink").text());
-									artigo.setAutores(children.toString().split("\n")[13].split("<br />")[2]);
+									try{
+										artigo.setAutores(children.toString().split("\n")[13].split("<br />")[2]);
+									}catch (Exception e2) {
+										artigo.setAutores("Sem Autor");
+									}
 									int count = 1;
+									for(Element linkPdf : children.getElementsByAttributeValue("target", "newPdfWin")){
+										artigo.setLinkDownload(linkPdf.attr("href"));
+									}
+									if(artigo.getLinkDownload() == null || artigo.getLinkDownload().equals("")){
+										System.out.println();
+										artigo.setLinkDownload("sem Link para download");
+									}
 									for(Element component : children.getElementsByTag("i")){
 										if(count == 1){
 											artigo.setOndePub(component.text());
@@ -45,7 +57,7 @@ public class ParserHtmlScienceDirect {
 										}
 										count++;
 									}
-									
+									artigos.add(artigo);
 								}
 							}
 

@@ -37,7 +37,7 @@ public class postGoogleForm {
 					+ URLEncoder.encode(a.getTitulo(), "UTF-8") + "&"
 					
 					+ URLEncoder.encode(AUTORES, "UTF-8") + "="
-					+ URLEncoder.encode(a.getAutores(), "UTF-8") + "&"
+					+ a.getAutores() + "&"
 					
 					+ URLEncoder.encode(ANO_PUBLICACAO, "UTF-8") + "="
 					+ URLEncoder.encode(a.getPubYear(), "UTF-8") + "&"
