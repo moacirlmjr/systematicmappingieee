@@ -14,7 +14,8 @@ public class ParserHtmlSpringer {
 
 	private static final String ARTIGO = "detail";
 	private static final String LIST_ARTIGOS = "header";
-	private static final String SEARCH_RESULTS = "Results";
+	private static final String SEARCH_RESULTS = "results";
+	private static final String SEARCH_RESULTS_CLASS = "content-item-list";
 
 	public static List<Artigo> realizarParserHtml(File diretorio)
 			throws Exception {
@@ -22,63 +23,37 @@ public class ParserHtmlSpringer {
 		List<Artigo> artigos = new ArrayList<Artigo>();
 		if (diretorio.isDirectory()) {
 			for (File html : diretorio.listFiles()) {
-				if (html.getName().contains("html")) {
+				if (html.getName().contains("htm")) {
 					Document doc = Jsoup.parse(html, "UTF-8", "localhost");
-					for (Element e : doc.select("ul")) {
-						if (e.className().equalsIgnoreCase(SEARCH_RESULTS)) {
-							for (Element subE : e
-									.getElementsByClass(LIST_ARTIGOS)) {
-								Boolean test = new Boolean(false);
-								Artigo artigo = new Artigo();
-								Element detail = subE
-										.getElementsByClass(ARTIGO).first();
-								Element H3 = detail.getElementsByTag("h3")
-										.first();
-								if (H3.getElementsByTag("a").first() != null) {
-									artigo.setTitulo(H3.getElementsByTag("a")
-											.first().text());
-								} else {
-									artigo.setTitulo(H3.text());
-								}
-								String textoDetail[] = detail.toString().split(
-										"\n");
-								for (String texto : textoDetail) {
-									if (texto.contains("<h3>")) {
-										if(texto.split("</h3> ").length >= 2){
-											test = true;
-											artigo.setAutores(texto.split("</h3> ")[1]);
-										}
-									} else if (texto
-											.contains("Publication Year")) {
-										artigo.setPubYear(texto.split(": ")[1]);
-									} else if (texto
-											.contains("RecentIssue.jsp")) {
-										Document doc2 = Jsoup
-												.parseBodyFragment(texto);
-										Element link = doc2.body();
-										artigo.setOndePub(link.text());
-									} else if (texto.contains("stamp.jsp?")) {
-										Document doc2 = Jsoup
-												.parseBodyFragment(texto);
-										Element linkDownloadElement = doc2
-												.body();
-										for (Element link : linkDownloadElement
-												.getElementsByAttribute("href")) {
-											if (link.attr("href").contains(
-													"stamp.jsp?")) {
-												artigo.setLinkDownload(link
-														.attr("href"));
-												break;
+					for (Element resultsDiv : doc.select("div")) {
+						if(resultsDiv.attr("id").equals(SEARCH_RESULTS)){
+							for(Element subResult: resultsDiv.getElementsByTag("ol")){
+								if(subResult.attr("id").equals("results-list")){
+									for(Element resultsList : subResult.getElementsByAttributeValue("id", "results-list")){
+										for(Element result : resultsList.children()){
+												Artigo artigo = new Artigo();
+												artigo.setTitulo(result.getElementsByAttributeValue("class", "title").text());
+												artigo.setAutores(result.getElementsByAttributeValue("class", "authors").text());
+												artigo.setOndePub(result.getElementsByAttributeValue("class", "publication-title").text());
+												if(result.getElementsByAttributeValue("class", "year").attr("title").split(" ").length > 1){
+													artigo.setPubYear(result.getElementsByAttributeValue("class", "year").attr("title").split(" ")[1]);	
+												}else if(result.getElementsByAttributeValue("class", "year").attr("title").split(" ").length == 1){
+													artigo.setPubYear(result.getElementsByAttributeValue("class", "year").attr("title").split(" ")[0]);
+												}
+												if(result.getElementsByAttributeValue("class", "webtrekk-track pdf-link").size() != 0){
+													artigo.setLinkDownload("http://link.springer.com" + result.getElementsByAttributeValue("class", "webtrekk-track pdf-link").attr("href"));
+												}else if(result.getElementsByAttributeValue("class", "lookinside-href webtrekk-track").size() != 0){
+													artigo.setLinkDownload("http://link.springer.com" + result.getElementsByAttributeValue("class", "title").attr("href"));
+												} else {
+													artigo.setLinkDownload("Sem link para download");
+												} 
+												artigos.add(artigo);
 											}
 										}
-
-									}
 								}
-								if(test){
-									artigos.add(artigo);
-								}
+								
 							}
-
+							
 						}
 					}
 				}
