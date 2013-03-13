@@ -6,6 +6,7 @@ public class Artigo {
 	private String pubYear;
 	private String ondePub;
 	private String linkDownload;
+	private String origem;
 
 	public String getTitulo() {
 		return titulo;
@@ -45,6 +46,14 @@ public class Artigo {
 
 	public void setLinkDownload(String linkDownload) {
 		this.linkDownload = linkDownload;
+	}
+
+	public String getOrigem() {
+		return origem;
+	}
+
+	public void setOrigem(String origem) {
+		this.origem = origem;
 	}
 
 }
