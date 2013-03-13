@@ -1,12 +1,11 @@
 package br.com.ufpb.mapSis.main;
 
 import java.io.File;
-import java.util.ArrayList;
 import java.util.List;
 
 import br.com.ufpb.mapSis.beans.Artigo;
 import br.com.ufpb.mapSis.integracao.post.postGoogleForm;
-import br.com.ufpb.mapSis.parser.ParserHtmlIEEE;
+import br.com.ufpb.mapSis.parser.ParserHtmlSpringer;
 
 public class ExecutarMappingSpringer {
 
@@ -15,12 +14,12 @@ public class ExecutarMappingSpringer {
 	 */
 	public static void main(String[] args) {
 		
-		File input = new File("htmls");
+		File input = new File("htmlSpringer");
 		try {
-			List<Artigo> artigos = ParserHtmlIEEE.realizarParserHtml(input);
+			List<Artigo> artigos = ParserHtmlSpringer.realizarParserHtml(input);
 			
 			for(Artigo a: artigos){
-				postGoogleForm.post(a, "IEEE Explorer");
+				postGoogleForm.post(a, "Springer Link");
 			}
 			
 		} catch (Exception e) {
