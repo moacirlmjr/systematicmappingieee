@@ -7,6 +7,7 @@ import java.util.List;
 import org.jsoup.Jsoup;
 import org.jsoup.nodes.Document;
 import org.jsoup.nodes.Element;
+import org.jsoup.select.Elements;
 
 import br.com.ufpb.mapSis.beans.Artigo;
 
@@ -34,6 +35,7 @@ public class ParserHtmlIEEE {
 										.getElementsByClass(ARTIGO).first();
 								Element H3 = detail.getElementsByTag("h3")
 										.first();
+								
 								if (H3.getElementsByTag("a").first() != null) {
 									artigo.setTitulo(H3.getElementsByTag("a")
 											.first().text());
@@ -42,13 +44,15 @@ public class ParserHtmlIEEE {
 								}
 								String textoDetail[] = detail.toString().split(
 										"\n");
+								Elements aAuthors = detail.getElementsByClass("prefNameLink");
+								artigo.setAutores("");
+								for(Element author: aAuthors){
+									artigo.setAutores(artigo.getAutores() + " " + author.text());
+									test = true;
+								}
+								
 								for (String texto : textoDetail) {
-									if (texto.contains("<h3>")) {
-										if(texto.split("</h3> ").length >= 2){
-											test = true;
-											artigo.setAutores(texto.split("</h3> ")[1]);
-										}
-									} else if (texto
+									if (texto
 											.contains("Publication Year")) {
 										artigo.setPubYear(texto.split(": ")[1]);
 									} else if (texto

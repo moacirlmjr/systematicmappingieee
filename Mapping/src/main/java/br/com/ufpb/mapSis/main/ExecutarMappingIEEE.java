@@ -20,7 +20,7 @@ public class ExecutarMappingIEEE {
 			List<Artigo> artigos = ParserHtmlIEEE.realizarParserHtml(input);
 			
 			for(Artigo a: artigos){
-				postGoogleForm.post(a, "IEEE Explorer");
+				postGoogleForm.post(a, "IEEE Xplore");
 			}
 			
 		} catch (Exception e) {
